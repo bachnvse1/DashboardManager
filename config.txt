@@ -1,0 +1,14 @@
+Chạy lệnh dotnet clean.
+Chạy lệnh dotnet build.
+
+dotnet restore
+dotnet add package Swashbuckle.AspNetCore
+dotnet build --project D:\C#\DashboardManager\AdminManager\AdminManager.csproj
+
+cd project
+ls
+
+
+dotnet ef migrations add InitialCreate --project vvvv.csproj
+
+dotnet ef database update
