@@ -9,6 +9,7 @@ namespace EmployeeManager.Repository
 
         // Read
         Employee GetEmployeeById(int id);
+
         IEnumerable<Employee> GetAllEmployees();
 
         // Update

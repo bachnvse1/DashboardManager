@@ -9,6 +9,7 @@ namespace EmployeeManager.Repository
 
         // Read
         Department GetDepartmentById(int id);
+
         IEnumerable<Department> GetAllDepartments();
 
         // Update

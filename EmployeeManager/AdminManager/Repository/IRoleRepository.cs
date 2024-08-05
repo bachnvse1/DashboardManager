@@ -9,6 +9,7 @@ namespace EmployeeManager.Repository
 
         // Read
         Role GetRoleById(int id);
+
         IEnumerable<Role> GetAllRoles();
 
         // Update
