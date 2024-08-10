@@ -1,16 +1,14 @@
-﻿using AdminManager.Entity;
-using AdminManager.OfficeDB;
-using Microsoft.EntityFrameworkCore;
+﻿using AdminManager.OfficeDB;
 using ProjectFS2.Entity;
+using Infrastructure.DependencyInjection;
+using EmployeeManager.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));
+builder.Services.InfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
 

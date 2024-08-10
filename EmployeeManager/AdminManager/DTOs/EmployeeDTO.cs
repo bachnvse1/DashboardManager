@@ -1,4 +1,4 @@
-﻿namespace AdminManager.Entity
+﻿namespace EmployeeManager.DTOs
 {
     public class EmployeeDTO
     {
