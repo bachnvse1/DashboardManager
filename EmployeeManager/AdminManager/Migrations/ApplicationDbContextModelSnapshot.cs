@@ -65,9 +65,6 @@ namespace AdminManager.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("EmployeeId"));
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("EmployeeName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -76,8 +73,6 @@ namespace AdminManager.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("EmployeeId");
-
-                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -122,6 +117,9 @@ namespace AdminManager.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
@@ -147,6 +145,8 @@ namespace AdminManager.Migrations
 
                     b.HasKey("UserId");
 
+                    b.HasIndex("DepartmentId");
+
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
@@ -154,37 +154,37 @@ namespace AdminManager.Migrations
 
             modelBuilder.Entity("ProjectFS2.Entity.Employee", b =>
                 {
-                    b.HasOne("ProjectFS2.Entity.Department", "Department")
-                        .WithMany("Employees")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectFS2.Entity.User", "User")
-                        .WithOne("Employee")
+                    b.HasOne("ProjectFS2.Entity.User", "user")
+                        .WithOne("employee")
                         .HasForeignKey("ProjectFS2.Entity.Employee", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Department");
-
-                    b.Navigation("User");
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("ProjectFS2.Entity.User", b =>
                 {
-                    b.HasOne("ProjectFS2.Entity.Role", "Role")
+                    b.HasOne("ProjectFS2.Entity.Department", "department")
+                        .WithMany("user")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjectFS2.Entity.Role", "role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
+                    b.Navigation("department");
+
+                    b.Navigation("role");
                 });
 
             modelBuilder.Entity("ProjectFS2.Entity.Department", b =>
                 {
-                    b.Navigation("Employees");
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("ProjectFS2.Entity.Role", b =>
@@ -194,7 +194,7 @@ namespace AdminManager.Migrations
 
             modelBuilder.Entity("ProjectFS2.Entity.User", b =>
                 {
-                    b.Navigation("Employee")
+                    b.Navigation("employee")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
