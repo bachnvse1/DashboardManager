@@ -13,7 +13,7 @@ namespace ProjectFS2.Entity
         public DateTime updated_at { get; set; }
         public int created_by { get; set; }
         public int updated_by { get; set; }
-        public ICollection<Employee> Employees { get; set; }
+        public ICollection<User> user { get; set; }
 
     }
 }

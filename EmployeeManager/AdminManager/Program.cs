@@ -26,18 +26,19 @@ else
 }
 
 app.UseHttpsRedirection();
-app.MapPost("/employee/", async (EmployeeDTO e, ApplicationDbContext db) =>
+app.MapPost("/users/", async (UserDTOs e, ApplicationDbContext db) =>
 {
-    Employee e1 = new Employee()
+    User u = new User()
     {
-        EmployeeId = e.EmployeeId,
-        EmployeeName = e.EmployeeName,
-        DepartmentId = e.DepartmentId,
         UserId = e.UserId,
+        UserName = e.UserName,
+        Password = e.Password,
+        RoleId = e.RoleId,
+        DepartmentId = e.DepartmentId,
     };
-    db.Employees.Add(e1);
+    db.Users.Add(u);
     await db.SaveChangesAsync();
-    return Results.Created($"/employee/{e.EmployeeId}", e);
+    return Results.Created($"/employee/{u.UserId}", e);
 });
 app.UseStaticFiles();
 app.UseRouting();

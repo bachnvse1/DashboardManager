@@ -29,21 +29,24 @@ namespace AdminManager.OfficeDB
         {
             // User-Role relationship
             modelBuilder.Entity<User>()
-                .HasOne(u => u.Role)
+                .HasOne(u => u.role)
                 .WithMany(r => r.Users)
                 .HasForeignKey(u => u.RoleId);
 
             // Employee-Department relationship
             modelBuilder.Entity<Employee>()
-                .HasOne(e => e.Department)
-                .WithMany(d => d.Employees)
-                .HasForeignKey(e => e.DepartmentId);
+                .HasOne(e => e.user);
 
             // User-Employee relationship (one-to-one)
             modelBuilder.Entity<User>()
-                .HasOne(u => u.Employee)
-                .WithOne(e => e.User)
+                .HasOne(u => u.employee)
+                .WithOne(e => e.user)
                 .HasForeignKey<Employee>(e => e.UserId);
+
+            modelBuilder.Entity<User>()
+               .HasOne(u => u.department)
+               .WithMany(r => r.user)
+               .HasForeignKey(e => e.DepartmentId);
         }
     }
 }
