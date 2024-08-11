@@ -1,4 +1,5 @@
-﻿using ProjectFS2.Entity;
+﻿using EmployeeManager.DTOs;
+using ProjectFS2.Entity;
 
 namespace EmployeeManager.Repository
 {
@@ -10,6 +11,8 @@ namespace EmployeeManager.Repository
         // Read
         User GetUserById(int id);
 
+        User GetUserByUsername(string username);
+
         IEnumerable<User> GetAllUsers();
 
         // Update
@@ -17,5 +20,11 @@ namespace EmployeeManager.Repository
 
         // Delete
         void DeleteUser(int id);
+
+        RegistrationResponse RegisterUser(RegisterUserDTOs registerUserDTOs);
+
+        LoginResponse LoginUser(LoginDTOs loginDTOs);
+
+        string GenerateJWTToken(User user);
     }
 }
