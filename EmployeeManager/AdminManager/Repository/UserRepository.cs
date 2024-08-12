@@ -93,9 +93,9 @@ namespace EmployeeManager.Repository
             var getUser = GetUserByUsername(loginDTOs.UserName);
             if (getUser == null)
                 return new LoginResponse(false, "User not found");
-            bool checkPassword = BCrypt.Net.BCrypt.Verify(loginDTOs.Password, loginDTOs.Password);
+            bool checkPassword = BCrypt.Net.BCrypt.Verify(loginDTOs.Password, getUser.Password);
             if (checkPassword)
-                return new LoginResponse(true, "Login successfully!");
+                return new LoginResponse(true, "Login successfully!", GenerateJWTToken(getUser));
             return new LoginResponse(false, "Login failed!");
 
         }
